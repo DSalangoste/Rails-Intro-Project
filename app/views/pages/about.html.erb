@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-4">About Dog Breeds Explorer</h1>
+      
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">Site Description</h2>
+          <p class="card-text">
+            Dog Breeds Explorer is a vast database for dog lovers to enjoy and learn about dog breeds, their characteristics, photos and more.
+            This site is a project created by Dale S for the "Full Stack Web Development" course at Red River College.
+          </p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">Data Sources We Use</h2>
+          
+          <h3>The Dog API</h3>
+          <p class="card-text">
+            Primary source for breed information including:
+            <ul>
+              <li>Breed names and groups</li>
+              <li>Country of origin</li>
+              <li>Temperament descriptions</li>
+            </ul>
+            <a href="https://thedogapi.com/" target="_blank" class="btn btn-outline-primary">Visit The Dog API</a>
+          </p>
+
+          <h3 class="mt-4">Dog CEO API</h3>
+          <p class="card-text">
+            Source for dog images and sub-breed information:
+            <ul>
+              <li>High-quality dog breed photos</li>
+              <li>Sub-breed classifications</li>
+              <li>Multiple images per breed</li>
+            </ul>
+            <a href="https://dog.ceo/dog-api/" target="_blank" class="btn btn-outline-primary">Visit Dog CEO API</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Database Statistics</h2>
+          <p class="card-text">
+            Our database currently contains:
+            <ul>
+              <li><%= Breed.count %> unique dog breeds</li>
+              <li><%= SubBreed.count %> sub-breeds</li>
+              <li><%= DogImage.count %> dog images</li>
+              <li><strong>Total database entries:</strong> <%= Breed.count + SubBreed.count + DogImage.count %></li>
+            </ul>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
