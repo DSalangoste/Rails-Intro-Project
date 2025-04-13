@@ -1,0 +1,54 @@
+<div class="row mb-4">
+  <div class="col-12">
+    <%= link_to "← Back to All Breeds", breeds_path, class: "btn btn-outline-primary" %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <h1><%= @breed.name %></h1>
+    
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Breed Information</h5>
+        <dl class="row">
+          <dt class="col-sm-3">Group</dt>
+          <dd class="col-sm-9"><%= @breed.group %></dd>
+          
+          <dt class="col-sm-3">Origin</dt>
+          <dd class="col-sm-9"><%= @breed.origin %></dd>
+          
+          <dt class="col-sm-3">Temperament</dt>
+          <dd class="col-sm-9"><%= @breed.temperament %></dd>
+        </dl>
+      </div>
+    </div>
+
+    <% if @breed.sub_breeds.any? %>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Sub Breeds</h5>
+          <ul class="list-group list-group-flush">
+            <% @breed.sub_breeds.each do |sub_breed| %>
+              <li class="list-group-item"><%= sub_breed.name.titleize %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <h2 class="mb-4">Photo Gallery</h2>
+  </div>
+  
+  <% @breed.dog_images.each do |image| %>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <%= image_tag image.image_url, class: "card-img-top", alt: "#{@breed.name} photo" %>
+      </div>
+    </div>
+  <% end %>
+</div>
