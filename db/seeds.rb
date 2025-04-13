@@ -18,8 +18,8 @@ Breed.destroy_all
 puts "Fetching data from The Dog API..."
 dog_api_url = "https://api.thedogapi.com/v1/breeds"
 
-# Fix the API key format in headers
-response = HTTParty.get(dog_api_url, headers: { 'x-api-key' => 'live_J41fbrgVGKc0wBUCd5eeAkFWv7XEtmYRCpuS9HnFk1DPjVE21e9nwzARp0STU8Dx' })
+# Use environment variable for API key
+response = HTTParty.get(dog_api_url, headers: { 'x-api-key' => ENV['DOG_API_KEY'] })
 breeds_data = JSON.parse(response.body)
 
 breeds_data.each do |breed_data|
