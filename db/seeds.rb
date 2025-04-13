@@ -56,8 +56,8 @@ all_breeds.each do |breed_name, sub_breeds|
     puts "Created sub-breed: #{sub_breed.name} for #{breed.name}"
   end
 
-  # Fetch and save some images for each breed
-  images_url = "https://dog.ceo/api/breed/#{breed_name}/images/random/5"
+  # Increased from 5 to 10 images per breed to ensure we meet the 200 row requirement
+  images_url = "https://dog.ceo/api/breed/#{breed_name}/images/random/10"
   images_response = HTTParty.get(images_url)
   images = JSON.parse(images_response.body)['message']
   
@@ -71,4 +71,9 @@ all_breeds.each do |breed_name, sub_breeds|
   end
 end
 
-puts "Seeding completed!"
+# Print final counts
+puts "\nFinal row counts:"
+puts "Breeds: #{Breed.count}"
+puts "SubBreeds: #{SubBreed.count}"
+puts "DogImages: #{DogImage.count}"
+puts "Total rows: #{Breed.count + SubBreed.count + DogImage.count}"
