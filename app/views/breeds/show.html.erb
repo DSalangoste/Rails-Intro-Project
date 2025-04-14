@@ -1,0 +1,52 @@
+<main class="container">
+  <nav aria-label="breadcrumb" class="mt-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to "All Breeds", breeds_path %></li>
+      <li class="breadcrumb-item active" aria-current="page"><%= @breed.name %></li>
+    </ol>
+  </nav>
+
+  <article class="row">
+    <div class="col-md-8">
+      <h1><%= @breed.name %></h1>
+      
+      <section class="mb-4">
+        <h2 class="h4">Breed Information</h2>
+        <dl>
+          <dt>Group</dt>
+          <dd><%= @breed.group %></dd>
+          <dt>Origin</dt>
+          <dd><%= @breed.origin %></dd>
+          <dt>Temperament</dt>
+          <dd><%= @breed.temperament %></dd>
+        </dl>
+      </section>
+
+      <% if @breed.sub_breeds.any? %>
+        <section class="mb-4">
+          <h2 class="h4">Sub-breeds</h2>
+          <ul class="list-group">
+            <% @breed.sub_breeds.each do |sub_breed| %>
+              <li class="list-group-item"><%= sub_breed.name %></li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+    </div>
+
+    <aside class="col-md-4">
+      <section class="mb-4">
+        <h2 class="h4">Photos</h2>
+        <div class="row g-2">
+          <% @breed.dog_images.each do |image| %>
+            <div class="col-6">
+              <%= image_tag image.image_url, 
+                  class: "img-fluid rounded", 
+                  alt: "Photo of #{@breed.name}" %>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    </aside>
+  </article>
+</main>

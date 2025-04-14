@@ -1,0 +1,51 @@
+<main class="container">
+  <article class="row">
+    <div class="col-12">
+      <h1>About Dog Breeds Explorer</h1>
+      
+      <section class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">Project Description</h2>
+          <p class="card-text">
+            Dog Breeds Explorer is a comprehensive database for dog lovers to discover and learn about dog breeds, 
+            their characteristics, photos and more.
+          </p>
+        </div>
+      </section>
+
+      <section class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">Data Sources</h2>
+          <div class="card-text">
+            <h3 class="h5">The Dog API</h3>
+            <p>Provides detailed breed information including:</p>
+            <ul>
+              <li>Breed characteristics</li>
+              <li>Origin information</li>
+              <li>Temperament details</li>
+            </ul>
+
+            <h3 class="h5">Dog CEO API</h3>
+            <p>Provides high-quality dog images and sub-breed information.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-body">
+          <h2 class="card-title">Database Statistics</h2>
+          <dl class="card-text">
+            <dt>Unique Dog Breeds</dt>
+            <dd><%= Breed.count %></dd>
+            <dt>Sub-breeds</dt>
+            <dd><%= SubBreed.count %></dd>
+            <dt>Dog Images</dt>
+            <dd><%= DogImage.count %></dd>
+            <dt>Total Database Entries</dt>
+            <dd><strong><%= Breed.count + SubBreed.count + DogImage.count %></strong></dd>
+          </dl>
+        </div>
+      </section>
+    </div>
+  </article>
+</main>
