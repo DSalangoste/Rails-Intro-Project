@@ -1,6 +1,10 @@
 class BreedsController < ApplicationController
   def index
-    @breeds = Breed.all
+    @breeds = if params[:search].present?
+      Breed.where("LOWER(name) LIKE ?", "%#{params[:search].downcase}%")
+    else
+      Breed.all
+    end
   end
 
   def show

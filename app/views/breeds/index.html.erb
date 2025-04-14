@@ -1,25 +1,44 @@
-<div class="row">
-  <div class="col-12">
-    <h1 class="mb-4">Dog Breeds Directory</h1>
-  </div>
-</div>
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  <% @breeds.each do |breed| %>
-    <div class="col">
-      <div class="card h-100">
-        <% if breed.dog_images.first %>
-          <%= image_tag breed.dog_images.first.image_url, class: "card-img-top", alt: breed.name %>
-        <% end %>
-        <div class="card-body">
-          <h5 class="card-title"><%= breed.name %></h5>
-          <p class="card-text">
-            <strong>Group:</strong> <%= breed.group %><br>
-            <strong>Origin:</strong> <%= breed.origin %>
-          </p>
-          <%= link_to "Learn More", breed_path(breed), class: "btn btn-primary" %>
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1>Dog Breeds Directory</h1>
+      
+      <%= form_with url: breeds_path, method: :get, local: true do |f| %>
+        <div class="input-group mb-3">
+          <%= f.text_field :search, value: params[:search], class: "form-control", placeholder: "Search by breed name..." %>
+          <%= f.submit "Search", class: "btn btn-primary" %>
+          <% if params[:search].present? %>
+            <%= link_to "Clear", breeds_path, class: "btn btn-secondary" %>
+          <% end %>
         </div>
-      </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if params[:search].present? %>
+    <div class="alert alert-info">
+      Found <%= @breeds.count %> breeds matching '<%= params[:search] %>'
+      <%= link_to 'Clear Search', breeds_path, class: 'float-end' %>
     </div>
   <% end %>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @breeds.each do |breed| %>
+      <div class="col">
+        <div class="card h-100">
+          <% if breed.dog_images.first %>
+            <%= image_tag breed.dog_images.first.image_url, class: "card-img-top", alt: breed.name %>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= breed.name %></h5>
+            <p class="card-text">
+              <strong>Group:</strong> <%= breed.group %><br>
+              <strong>Origin:</strong> <%= breed.origin %>
+            </p>
+            <%= link_to "Learn More", breed_path(breed), class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
