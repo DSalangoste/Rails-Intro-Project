@@ -1,23 +1,36 @@
 <main class="container">
-  <section class="row mb-4">
-    <div class="col-12">
+  <div class="row mb-4">
+    <div class="col-md-8">
       <h1>Dog Breeds Directory</h1>
-      
-      <%= form_with url: breeds_path, method: :get, local: true, class: "mt-3" do |f| %>
-        <div class="input-group">
-          <%= f.text_field :search, 
-              value: params[:search], 
-              class: "form-control",
-              placeholder: "Search by breed name...",
-              "aria-label": "Search breeds" %>
-          <%= f.submit "Search", class: "btn btn-primary" %>
-          <% if params[:search].present? %>
-            <%= link_to "Clear", breeds_path, class: "btn btn-secondary", "aria-label": "Clear search" %>
-          <% end %>
-        </div>
+    </div>
+    <div class="col-md-4">
+      <div class="dropdown float-end">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+          Sort by: <%= params[:sort]&.humanize || 'Name (A-Z)' %>
+        </button>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'Name (A-Z)', breeds_path(sort: 'name_asc', search: params[:search]), class: "dropdown-item" %></li>
+          <li><%= link_to 'Name (Z-A)', breeds_path(sort: 'name_desc', search: params[:search]), class: "dropdown-item" %></li>
+          <li><%= link_to 'Group', breeds_path(sort: 'group', search: params[:search]), class: "dropdown-item" %></li>
+          <li><%= link_to 'Origin', breeds_path(sort: 'origin', search: params[:search]), class: "dropdown-item" %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <%= form_with url: breeds_path, method: :get, local: true, class: "mt-3" do |f| %>
+    <div class="input-group">
+      <%= f.text_field :search, 
+          value: params[:search], 
+          class: "form-control",
+          placeholder: "Search by breed name...",
+          "aria-label": "Search breeds" %>
+      <%= f.submit "Search", class: "btn btn-primary" %>
+      <% if params[:search].present? %>
+        <%= link_to "Clear", breeds_path, class: "btn btn-secondary", "aria-label": "Clear search" %>
       <% end %>
     </div>
-  </section>
+  <% end %>
 
   <% if params[:search].present? %>
     <section class="alert alert-info" role="alert">
