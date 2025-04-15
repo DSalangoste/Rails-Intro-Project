@@ -1,0 +1,23 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
+/* Import Bootstrap CSS */
+@import 'bootstrap';
+
+/* Custom styles */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+} 
