@@ -1,14 +1,24 @@
 class BreedsController < ApplicationController
   def index
-    @breeds = if params[:search].present?
-      Breed.where("LOWER(name) LIKE ?", "%#{params[:search].downcase}%")
-    else
-      Breed.all
+    @breeds = Breed.all
+
+    # Apply search filter
+    if params[:search].present?
+      @breeds = @breeds.where("LOWER(name) LIKE ?", "%#{params[:search].downcase}%")
     end
 
+    # Apply group filter
+    if params[:group].present?
+      @breeds = @breeds.where(group: params[:group])
+    end
+
+    # Apply origin filter
+    if params[:origin].present?
+      @breeds = @breeds.where(origin: params[:origin])
+    end
+
+    # Apply sorting
     @breeds = case params[:sort]
-      when 'name_asc'
-        @breeds.order(name: :asc)
       when 'name_desc'
         @breeds.order(name: :desc)
       when 'group'
@@ -18,6 +28,10 @@ class BreedsController < ApplicationController
       else
         @breeds.order(:name)
     end
+
+    # Get unique values for filters
+    @groups = Breed.distinct.pluck(:group).compact.sort
+    @origins = Breed.distinct.pluck(:origin).compact.sort
   end
 
   def show

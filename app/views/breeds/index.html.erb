@@ -4,17 +4,26 @@
       <h1>Dog Breeds Directory</h1>
     </div>
     <div class="col-md-4">
-      <div class="dropdown float-end">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-          Sort by: <%= params[:sort]&.humanize || 'Name (A-Z)' %>
-        </button>
-        <ul class="dropdown-menu">
-          <li><%= link_to 'Name (A-Z)', breeds_path(sort: 'name_asc', search: params[:search]), class: "dropdown-item" %></li>
-          <li><%= link_to 'Name (Z-A)', breeds_path(sort: 'name_desc', search: params[:search]), class: "dropdown-item" %></li>
-          <li><%= link_to 'Group', breeds_path(sort: 'group', search: params[:search]), class: "dropdown-item" %></li>
-          <li><%= link_to 'Origin', breeds_path(sort: 'origin', search: params[:search]), class: "dropdown-item" %></li>
-        </ul>
-      </div>
+      <%= form_with url: breeds_path, method: :get, local: true, class: 'mb-3' do |f| %>
+        <%= f.hidden_field :sort, value: params[:sort] %>
+        <%= f.hidden_field :search, value: params[:search] %>
+        
+        <div class="input-group mb-2">
+          <%= f.select :group, 
+              options_for_select([['All Groups', '']] + @groups, params[:group]),
+              {}, 
+              class: 'form-select',
+              onchange: 'this.form.submit()' %>
+        </div>
+
+        <div class="input-group">
+          <%= f.select :origin,
+              options_for_select([['All Origins', '']] + @origins, params[:origin]),
+              {},
+              class: 'form-select',
+              onchange: 'this.form.submit()' %>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -37,6 +46,18 @@
       <p>Found <%= @breeds.count %> breeds matching '<%= params[:search] %>'</p>
       <%= link_to 'Clear Search', breeds_path, class: 'float-end' %>
     </section>
+  <% end %>
+
+  <% if params[:group].present? || params[:origin].present? %>
+    <div class="alert alert-info">
+      <% if params[:group].present? %>
+        Showing breeds from group: <strong><%= params[:group] %></strong><br>
+      <% end %>
+      <% if params[:origin].present? %>
+        Showing breeds from: <strong><%= params[:origin] %></strong><br>
+      <% end %>
+      <%= link_to 'Clear Filters', breeds_path(search: params[:search], sort: params[:sort]), class: 'float-end' %>
+    </div>
   <% end %>
 
   <section class="row row-cols-1 row-cols-md-3 g-4">
